@@ -124,6 +124,8 @@
             display: inline-block;
             opacity: 0;
             animation: fadeInLetter 0.1s forwards;
+            color: #ff8fa3 !important;
+            -webkit-text-fill-color: #ff8fa3 !important;
         }
 
         @keyframes fadeInLetter {
@@ -326,7 +328,7 @@
 
         <div class="names" id="names">
             <span class="name-text" id="name1"></span>
-            <div class="weds-text">weddddddds</div>
+            <div class="weds-text">weds</div>
             <span class="name-text" id="name2"></span>
         </div>
 
@@ -382,25 +384,33 @@
 
         // Start the entrance sequence
         async function startEntranceSequence() {
+            console.log('startEntranceSequence called');
+
             const namesContainer = document.getElementById('names');
             const name1 = document.getElementById('name1');
             const wedsText = document.querySelector('.weds-text');
             const name2 = document.getElementById('name2');
 
+            console.log('Elements found:', {namesContainer, name1, wedsText, name2});
+
             // Step 1: Show names container and type first name
             namesContainer.classList.add('show');
+            console.log('Typing name1: Sharat');
             await typeWriter(name1, 'Sharat', 500, 150);
 
             // Step 2: Show "weds" after first name
             await new Promise(resolve => setTimeout(resolve, 300));
             wedsText.classList.add('show');
+            console.log('Showing weds');
 
             // Step 3: Wait a bit, then type second name
             await new Promise(resolve => setTimeout(resolve, 400));
+            console.log('Typing name2: Sreekutty');
             await typeWriter(name2, 'Sreekutty', 0, 150);
 
             // Step 4: Start particles after names are complete
             setTimeout(() => {
+                console.log('Starting particles');
                 startParticles();
             }, 500);
 
@@ -411,6 +421,8 @@
                     element.classList.add('fade-in');
                 }, 2000 + (index * 200));
             });
+
+            console.log('Entrance sequence complete');
         }
 
         // Falling petals
@@ -472,9 +484,30 @@
         }, { once: true });
 
         // Start the entrance animation when page loads
-        window.addEventListener('load', () => {
+        // Multi-layered fallback to ensure execution in all browsers (especially Chrome)
+
+        let animationStarted = false;
+
+        function initAnimation() {
+            if (animationStarted) return; // Prevent multiple executions
+            animationStarted = true;
+            console.log('Starting entrance animation...');
             startEntranceSequence();
-        });
+        }
+
+        // Method 1: DOMContentLoaded (fires earlier)
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initAnimation);
+        } else {
+            // DOM already loaded, execute immediately
+            initAnimation();
+        }
+
+        // Method 2: window load event (original)
+        window.addEventListener('load', initAnimation);
+
+        // Method 3: Emergency fallback with timeout
+        setTimeout(initAnimation, 100);
     </script>
 
 </body>
