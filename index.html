@@ -14,6 +14,9 @@
             overflow-x: hidden;
             background: #000;
             color: #fff;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            text-rendering: optimizeLegibility;
         }
 
         /* --- Background Image --- */
@@ -114,6 +117,10 @@
             display: inline-block;
             overflow: hidden;
             white-space: nowrap;
+            background: linear-gradient(135deg, #ff8fa3, #c77dae, #ffa07a, #dda0dd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .letter {
@@ -150,6 +157,7 @@
             text-shadow: 0 0 15px rgba(255,182,193,0.8);
             opacity: 0;
             transition: opacity 1s ease-in;
+            line-height: 1.4;
         }
 
         .subtext.fade-in {
@@ -178,6 +186,7 @@
             text-shadow: 0 0 10px rgba(255,182,193,0.6);
             opacity: 0;
             transition: opacity 1s ease-in;
+            line-height: 1.5;
         }
 
         .detail.fade-in {
@@ -228,14 +237,80 @@
             width: 100%;
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
+        /* Mobile Optimizations */
+
+        /* Small phones (iPhone SE, older Android) */
+        @media (max-width: 374px) {
+            .container { padding: 15px; margin: 60px auto; }
+            .names { font-size: 48px; min-height: 180px; }
+            .weds-text { font-size: 32px; margin: 10px 0; letter-spacing: 2px; }
+            .subtext { font-size: 24px; line-height: 1.5; margin: 30px 0; }
+            .section-title { font-size: 26px; margin: 30px 0 12px; }
+            .detail { font-size: 20px; line-height: 1.6; margin: 8px 0; }
+            .location-link { font-size: 24px; }
+            .location-icon { font-size: 26px; }
+        }
+
+        /* Standard phones (Most modern phones - primary target) */
+        @media (min-width: 375px) and (max-width: 428px) {
+            .container { padding: 20px; margin: 70px auto; }
             .names { font-size: 54px; min-height: 200px; }
-            .subtext { font-size: 28px; }
+            .weds-text { font-size: 36px; }
+            .subtext { font-size: 28px; line-height: 1.5; margin: 35px 0; }
             .section-title { font-size: 30px; }
-            .detail { font-size: 24px; }
+            .detail { font-size: 24px; line-height: 1.6; margin: 8px 0; }
             .location-link { font-size: 28px; }
             .location-icon { font-size: 30px; }
+        }
+
+        /* Large phones and small tablets */
+        @media (min-width: 429px) and (max-width: 768px) {
+            .container { padding: 25px; margin: 80px auto; }
+            .names { font-size: 60px; min-height: 220px; }
+            .weds-text { font-size: 38px; }
+            .subtext { font-size: 30px; line-height: 1.5; }
+            .section-title { font-size: 32px; }
+            .detail { font-size: 26px; line-height: 1.6; }
+            .location-link { font-size: 30px; }
+            .location-icon { font-size: 32px; }
+        }
+
+        /* Touch target optimization for all mobile */
+        @media (max-width: 768px) {
+            .location-link {
+                padding: 10px;
+                margin: 10px 0;
+                display: inline-block;
+                /* Minimum 44x44px touch target */
+                min-height: 44px;
+                min-width: 44px;
+            }
+
+            /* Better spacing for readability */
+            .detail br { display: inline; }
+            .detail br::after { content: " "; }
+
+            /* Performance optimizations for mobile */
+            .petal {
+                will-change: transform, opacity;
+                transform: translate3d(0, 0, 0);
+            }
+
+            .background-photo {
+                /* Optimize background for mobile */
+                background-attachment: scroll;
+            }
+
+            /* Smoother animations on mobile */
+            * {
+                -webkit-tap-highlight-color: rgba(255, 182, 193, 0.2);
+            }
+
+            /* Prevent text selection on names during animation */
+            .names {
+                -webkit-user-select: none;
+                user-select: none;
+            }
         }
     </style>
 </head>
@@ -243,7 +318,7 @@
 <body>
 
     <!-- Background Music -->
-    <audio id="bg-music" autoplay loop>
+    <audio id="bg-music" loop>
         <source src="music.mp3" type="audio/mpeg">
     </audio>
 
@@ -389,11 +464,14 @@
             for (let i = 0; i < 15; i++) setTimeout(createPetal, i * 200);
         }
 
-        // Enable music on first click for mobile
+        // Enable music on first user interaction (tap/click)
+        // This provides better mobile UX and respects user preference
         document.addEventListener('click', function () {
             const audio = document.getElementById('bg-music');
-            audio.volume = 0.8;
-            audio.play().catch(() => {});
+            audio.volume = 0.5; // Lower volume for mobile
+            audio.play().catch(() => {
+                console.log('Music playback prevented by browser');
+            });
         }, { once: true });
 
         // Start the entrance animation when page loads
