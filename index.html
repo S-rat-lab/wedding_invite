@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
     <title>Sharat & Sreekutty - Wedding Invitation</title>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;600;700&family=Cormorant+Garamond:wght@300;400;600&family=Playfair+Display:wght@400;700&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
 
@@ -88,17 +88,17 @@
             }
         }
 
-        /* Content */
+        /* Content - MOBILE FIRST */
         .container {
             max-width: 900px;
-            margin: 80px auto;
+            margin: 40px auto !important;
             text-align: center;
-            padding: 20px;
+            padding: 20px !important;
         }
 
         .names {
             font-family: 'Playfair Display', serif;
-            font-size: 80px;
+            font-size: 64px !important;
             font-weight: 700;
             background: linear-gradient(135deg, #ff8fa3, #c77dae, #ffa07a, #dda0dd);
             -webkit-background-clip: text;
@@ -106,7 +106,7 @@
             margin: 10px 0 25px;
             text-shadow: 0 0 40px rgba(255,182,193,0.3);
             opacity: 0;
-            min-height: 280px;
+            min-height: 200px !important;
         }
 
         .names.show {
@@ -134,7 +134,7 @@
 
         .weds-text {
             font-family: 'Cinzel', serif;
-            font-size: 40px;
+            font-size: 42px !important;
             color: #ffb6c1;
             margin: 15px 0;
             text-shadow: 0 0 15px rgba(255,182,193,0.8);
@@ -149,14 +149,14 @@
         }
 
         .subtext {
-            font-size: 36px;
+            font-size: 32px !important;
             color: #ffd6e6;
-            margin: 40px 0;
+            margin: 30px 0 !important;
             font-style: italic;
             text-shadow: 0 0 15px rgba(255,182,193,0.8);
             opacity: 0;
             transition: opacity 1s ease-in;
-            line-height: 1.4;
+            line-height: 1.4 !important;
         }
 
         .subtext.fade-in {
@@ -165,9 +165,9 @@
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 36px;
+            font-size: 36px !important;
             color: #ffb6d5;
-            margin: 40px 0 15px;
+            margin: 30px 0 15px !important;
             letter-spacing: 3px;
             text-shadow: 0 0 20px rgba(255,182,193,0.7);
             opacity: 0;
@@ -179,13 +179,13 @@
         }
 
         .detail {
-            font-size: 32px;
+            font-size: 28px !important;
             color: #ffe5f1;
-            margin: 6px 0;
+            margin: 8px 0 !important;
             text-shadow: 0 0 10px rgba(255,182,193,0.6);
             opacity: 0;
             transition: opacity 1s ease-in;
-            line-height: 1.5;
+            line-height: 1.5 !important;
         }
 
         .detail.fade-in {
@@ -206,7 +206,7 @@
             position: relative;
             display: inline-block;
             padding-bottom: 5px;
-            font-size: 34px;
+            font-size: 32px !important;
             font-style: italic;
             color: #ff9ab9;
             text-decoration: none;
@@ -215,7 +215,7 @@
 
         .location-icon {
             margin-right: 8px;
-            font-size: 36px;
+            font-size: 34px !important;
             vertical-align: middle;
             text-shadow: 0 0 12px rgba(255, 140, 160, 0.9);
         }
@@ -236,42 +236,36 @@
             width: 100%;
         }
 
-        /* Mobile Optimizations */
-
-        /* Small phones (iPhone SE, older Android) */
-        @media (max-width: 374px) {
-            .container { padding: 15px; margin: 30px auto; }
-            .names { font-size: 58px; min-height: 180px; }
-            .weds-text { font-size: 38px; margin: 10px 0; letter-spacing: 2px; }
-            .subtext { font-size: 28px; line-height: 1.4; margin: 25px 0; }
-            .section-title { font-size: 32px; margin: 25px 0 10px; }
-            .detail { font-size: 24px; line-height: 1.5; margin: 6px 0; }
-            .location-link { font-size: 28px; }
-            .location-icon { font-size: 30px; }
-        }
-
-        /* Standard phones (Most modern phones - primary target) */
-        @media (min-width: 375px) and (max-width: 428px) {
-            .container { padding: 20px; margin: 40px auto; }
-            .names { font-size: 64px; min-height: 200px; }
-            .weds-text { font-size: 42px; }
-            .subtext { font-size: 32px; line-height: 1.4; margin: 30px 0; }
-            .section-title { font-size: 36px; }
-            .detail { font-size: 28px; line-height: 1.5; margin: 8px 0; }
-            .location-link { font-size: 32px; }
-            .location-icon { font-size: 34px; }
-        }
-
-        /* Large phones and small tablets */
-        @media (min-width: 429px) and (max-width: 768px) {
-            .container { padding: 25px; margin: 50px auto; }
-            .names { font-size: 70px; min-height: 220px; }
-            .weds-text { font-size: 44px; }
-            .subtext { font-size: 34px; line-height: 1.4; }
-            .section-title { font-size: 38px; }
-            .detail { font-size: 30px; line-height: 1.5; }
-            .location-link { font-size: 34px; }
-            .location-icon { font-size: 36px; }
+        /* Desktop Optimizations (Mobile First Approach) */
+        @media (min-width: 769px) {
+            .container {
+                padding: 20px;
+                margin: 80px auto !important;
+            }
+            .names {
+                font-size: 80px !important;
+                min-height: 280px !important;
+            }
+            .weds-text {
+                font-size: 40px !important;
+            }
+            .subtext {
+                font-size: 36px !important;
+                margin: 40px 0 !important;
+            }
+            .section-title {
+                font-size: 36px !important;
+                margin: 40px 0 15px !important;
+            }
+            .detail {
+                font-size: 32px !important;
+            }
+            .location-link {
+                font-size: 34px !important;
+            }
+            .location-icon {
+                font-size: 36px !important;
+            }
         }
 
         /* Touch target optimization for all mobile */
