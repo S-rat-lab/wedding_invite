@@ -9,6 +9,11 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
 
+        html {
+            overflow-x: hidden;
+            max-width: 100vw;
+        }
+
         body {
             font-family: 'Cormorant Garamond', serif;
             overflow-x: hidden;
@@ -17,6 +22,7 @@
             -webkit-font-smoothing: antialiased;
             -moz-osx-font-smoothing: grayscale;
             text-rendering: optimizeLegibility;
+            max-width: 100vw;
         }
 
         /* --- Background Image --- */
@@ -89,17 +95,18 @@
             }
         }
 
-        /* Content - MOBILE FIRST */
+        /* Content - MOBILE FIRST with Viewport Scaling */
         .container {
-            max-width: 900px;
-            margin: 40px auto !important;
+            max-width: min(900px, 100vw);
+            margin: clamp(20px, 5vh, 40px) auto !important;
             text-align: center;
-            padding: 20px !important;
+            padding: clamp(15px, 5vw, 20px) !important;
+            width: 100%;
         }
 
         .names {
             font-family: 'Playfair Display', serif;
-            font-size: 96px !important;
+            font-size: clamp(64px, 12vw, 120px) !important;
             font-weight: 700;
             background: linear-gradient(135deg, #ff8fa3, #c77dae, #ffa07a, #dda0dd);
             -webkit-background-clip: text;
@@ -107,7 +114,7 @@
             margin: 10px 0 25px;
             text-shadow: 0 0 40px rgba(255,182,193,0.3);
             opacity: 0;
-            min-height: 300px !important;
+            min-height: clamp(200px, 30vh, 350px) !important;
         }
 
         .names.show {
@@ -135,7 +142,7 @@
 
         .weds-text {
             font-family: 'Cinzel', serif;
-            font-size: 63px !important;
+            font-size: clamp(42px, 8vw, 75px) !important;
             color: #ffb6c1;
             margin: 15px 0;
             text-shadow: 0 0 15px rgba(255,182,193,0.8);
@@ -150,9 +157,9 @@
         }
 
         .subtext {
-            font-size: 48px !important;
+            font-size: clamp(32px, 6vw, 54px) !important;
             color: #ffd6e6;
-            margin: 45px 0 !important;
+            margin: clamp(30px, 5vh, 50px) 0 !important;
             font-style: italic;
             text-shadow: 0 0 15px rgba(255,182,193,0.8);
             opacity: 0;
@@ -166,9 +173,9 @@
 
         .section-title {
             font-family: 'Cinzel', serif;
-            font-size: 54px !important;
+            font-size: clamp(36px, 7vw, 60px) !important;
             color: #ffb6d5;
-            margin: 50px 0 25px !important;
+            margin: clamp(35px, 6vh, 60px) 0 clamp(15px, 3vh, 30px) !important;
             letter-spacing: 3px;
             text-shadow: 0 0 20px rgba(255,182,193,0.7);
             opacity: 0;
@@ -180,9 +187,9 @@
         }
 
         .detail {
-            font-size: 42px !important;
+            font-size: clamp(28px, 5.5vw, 48px) !important;
             color: #ffe5f1;
-            margin: 15px 0 !important;
+            margin: clamp(10px, 2vh, 15px) 0 !important;
             text-shadow: 0 0 10px rgba(255,182,193,0.6);
             opacity: 0;
             transition: opacity 1s ease-in;
@@ -208,16 +215,18 @@
             position: relative;
             display: inline-block;
             padding-bottom: 5px;
-            font-size: 48px !important;
+            font-size: clamp(32px, 6vw, 52px) !important;
             font-style: italic;
             color: #ff9ab9;
             text-decoration: none;
             text-shadow: 0 0 15px rgba(255,140,160,0.8);
+            max-width: 100%;
+            word-wrap: break-word;
         }
 
         .location-icon {
             margin-right: 8px;
-            font-size: 51px !important;
+            font-size: clamp(34px, 6.5vw, 56px) !important;
             vertical-align: middle;
             text-shadow: 0 0 12px rgba(255, 140, 160, 0.9);
         }
@@ -238,36 +247,13 @@
             width: 100%;
         }
 
-        /* Desktop Optimizations (Mobile First Approach) */
+        /* Desktop Optimizations (Handled by clamp() max values) */
         @media (min-width: 769px) {
             .container {
-                padding: 20px;
+                padding: 25px;
                 margin: 80px auto !important;
             }
-            .names {
-                font-size: 120px !important;
-                min-height: 350px !important;
-            }
-            .weds-text {
-                font-size: 75px !important;
-            }
-            .subtext {
-                font-size: 54px !important;
-                margin: 50px 0 !important;
-            }
-            .section-title {
-                font-size: 60px !important;
-                margin: 60px 0 30px !important;
-            }
-            .detail {
-                font-size: 48px !important;
-            }
-            .location-link {
-                font-size: 52px !important;
-            }
-            .location-icon {
-                font-size: 56px !important;
-            }
+            /* Font sizes automatically scale to clamp() max values on desktop */
         }
 
         /* French Door Card Invitation */
@@ -291,10 +277,10 @@
 
         .door-container {
             position: relative;
-            width: 80%;
-            max-width: 600px;
-            height: 70%;
-            max-height: 800px;
+            width: 95%;
+            max-width: 900px;
+            height: 90%;
+            max-height: none;
         }
 
         .door {
@@ -406,17 +392,44 @@
         /* Mobile adjustments for door card */
         @media (max-width: 768px) {
             .door-container {
-                width: 90%;
-                height: 60%;
+                width: 95%;
+                height: 85%;
             }
             .monogram {
-                font-size: 56px !important;
+                font-size: clamp(48px, 10vw, 72px) !important;
             }
             .ampersand {
-                font-size: 36px !important;
+                font-size: clamp(32px, 6vw, 48px) !important;
             }
             .invitation-text {
-                font-size: 32px !important;
+                font-size: clamp(28px, 5.5vw, 42px) !important;
+            }
+        }
+
+        /* Extra small phones - Fine-tuning */
+        @media (max-width: 374px) {
+            .door-container {
+                width: 98%;
+                height: 80%;
+            }
+            .container {
+                padding: clamp(10px, 4vw, 15px) !important;
+            }
+        }
+
+        /* Small phones - Fine-tuning */
+        @media (min-width: 375px) and (max-width: 390px) {
+            .door-container {
+                width: 96%;
+                height: 83%;
+            }
+        }
+
+        /* Large phones - Fine-tuning */
+        @media (min-width: 391px) and (max-width: 428px) {
+            .door-container {
+                width: 95%;
+                height: 87%;
             }
         }
 
