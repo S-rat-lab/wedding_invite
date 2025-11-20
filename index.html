@@ -68,23 +68,23 @@
         @keyframes fall {
             0% {
                 transform: translateY(0) translateX(0) rotate(0deg);
-                opacity: 0.9;
+                opacity: 0.765;
             }
             25% {
                 transform: translateY(25vh) translateX(20px) rotate(90deg);
-                opacity: 0.8;
+                opacity: 0.68;
             }
             50% {
                 transform: translateY(50vh) translateX(-10px) rotate(180deg);
-                opacity: 0.7;
+                opacity: 0.595;
             }
             75% {
                 transform: translateY(75vh) translateX(15px) rotate(270deg);
-                opacity: 0.6;
+                opacity: 0.51;
             }
             100% {
                 transform: translateY(100vh) translateX(-5px) rotate(360deg);
-                opacity: 0.3;
+                opacity: 0.255;
             }
         }
 
@@ -269,60 +269,128 @@
             }
         }
 
-        /* Splash Screen */
-        .splash-screen {
+        /* French Door Card Invitation */
+        .invitation-card {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.85);
             z-index: 9999;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            perspective: 2000px;
+            cursor: pointer;
+        }
+
+        .invitation-card.opened {
+            pointer-events: none;
+        }
+
+        .door-container {
+            position: relative;
+            width: 80%;
+            max-width: 600px;
+            height: 70%;
+            max-height: 800px;
+        }
+
+        .door {
+            position: absolute;
+            top: 0;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(135deg, #2a1a1f 0%, #1a0e13 100%);
+            border: 3px solid;
+            border-image: linear-gradient(135deg, #ff8fa3, #c77dae, #dda0dd) 1;
+            box-shadow: 0 0 60px rgba(255,143,163,0.6), inset 0 0 40px rgba(255,182,193,0.1);
+            transition: transform 1.5s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+            backface-visibility: hidden;
+        }
+
+        .door-left {
+            left: 0;
+            transform-origin: left center;
+            border-right: 1.5px solid rgba(255,143,163,0.3);
+        }
+
+        .door-right {
+            right: 0;
+            transform-origin: right center;
+            border-left: 1.5px solid rgba(255,143,163,0.3);
+        }
+
+        .invitation-card.opened .door-left {
+            transform: rotateY(-120deg);
+        }
+
+        .invitation-card.opened .door-right {
+            transform: rotateY(120deg);
+        }
+
+        .door-content {
             display: flex;
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            cursor: pointer;
-            transition: opacity 1s ease-out;
+            height: 100%;
+            padding: 20px;
         }
 
-        .splash-screen.hidden {
-            opacity: 0;
-            pointer-events: none;
+        .door-ornament {
+            width: 80%;
+            height: 80%;
+            border: 2px solid rgba(255,143,163,0.4);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            position: relative;
         }
 
-        .splash-icon {
-            font-size: 80px !important;
-            margin-bottom: 30px;
-            animation: pulse 2s ease-in-out infinite;
+        .door-ornament::before {
+            content: '';
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            right: 10px;
+            bottom: 10px;
+            border: 1px solid rgba(255,143,163,0.2);
+            border-radius: 8px;
         }
 
-        .splash-text {
+        .monogram {
             font-family: 'Playfair Display', serif;
-            font-size: 54px !important;
-            color: #ff8fa3;
-            text-shadow: 0 0 30px rgba(255,143,163,0.8);
-            margin-bottom: 15px;
+            font-size: 72px !important;
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff8fa3, #c77dae, #ffa07a, #dda0dd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(255,143,163,0.6);
+            margin-bottom: 20px;
             animation: glow 2s ease-in-out infinite;
         }
 
-        .splash-subtitle {
-            font-family: 'Cormorant Garamond', serif;
-            font-size: 28px !important;
+        .ampersand {
+            font-family: 'Cinzel', serif;
+            font-size: 48px !important;
             color: #ffb6c1;
-            font-style: italic;
-            opacity: 0.8;
+            margin: 0 15px;
         }
 
-        @keyframes pulse {
-            0%, 100% {
-                transform: scale(1);
-                filter: drop-shadow(0 0 20px rgba(255,143,163,0.6));
-            }
-            50% {
-                transform: scale(1.1);
-                filter: drop-shadow(0 0 40px rgba(255,143,163,0.9));
-            }
+        .invitation-text {
+            position: absolute;
+            bottom: 10%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Playfair Display', serif;
+            font-size: 42px !important;
+            color: #ff8fa3;
+            text-shadow: 0 0 30px rgba(255,143,163,0.8);
+            white-space: nowrap;
+            animation: glow 2s ease-in-out infinite;
         }
 
         @keyframes glow {
@@ -331,6 +399,23 @@
             }
             50% {
                 text-shadow: 0 0 50px rgba(255,143,163,1);
+            }
+        }
+
+        /* Mobile adjustments for door card */
+        @media (max-width: 768px) {
+            .door-container {
+                width: 90%;
+                height: 60%;
+            }
+            .monogram {
+                font-size: 56px !important;
+            }
+            .ampersand {
+                font-size: 36px !important;
+            }
+            .invitation-text {
+                font-size: 32px !important;
             }
         }
 
@@ -384,10 +469,25 @@
     <div class="background-photo"></div>
     <div class="background-overlay"></div>
 
-    <!-- Splash Screen -->
-    <div class="splash-screen" id="splash">
-        <div class="splash-icon">🌸</div>
-        <div class="splash-text">Join Our Celebration</div>
+    <!-- French Door Invitation Card -->
+    <div class="invitation-card" id="invitation-card">
+        <div class="door-container">
+            <div class="door door-left">
+                <div class="door-content">
+                    <div class="door-ornament">
+                        <div class="monogram">S</div>
+                    </div>
+                </div>
+            </div>
+            <div class="door door-right">
+                <div class="door-content">
+                    <div class="door-ornament">
+                        <div class="monogram">S</div>
+                    </div>
+                </div>
+            </div>
+            <div class="invitation-text">Open Invitation</div>
+        </div>
     </div>
 
     <div class="container">
@@ -539,16 +639,16 @@
             for (let i = 0; i < 15; i++) setTimeout(createPetal, i * 200);
         }
 
-        // Splash screen handler
+        // French Door Card handler
         let animationStarted = false;
 
         function startExperience() {
             if (animationStarted) return;
             animationStarted = true;
 
-            // Hide splash screen
-            const splash = document.getElementById('splash');
-            splash.classList.add('hidden');
+            // Open the doors
+            const invitationCard = document.getElementById('invitation-card');
+            invitationCard.classList.add('opened');
 
             // Start music
             const audio = document.getElementById('bg-music');
@@ -557,17 +657,27 @@
                 console.log('Music playback prevented by browser');
             });
 
-            // Start entrance animation after splash fades
+            // Start entrance animation after doors open
             setTimeout(() => {
                 console.log('Starting entrance animation...');
                 startEntranceSequence();
-            }, 500);
+            }, 800);
+
+            // Hide the card completely after doors open
+            setTimeout(() => {
+                invitationCard.style.opacity = '0';
+                invitationCard.style.transition = 'opacity 1s ease-out';
+            }, 1500);
+
+            setTimeout(() => {
+                invitationCard.style.display = 'none';
+            }, 2500);
         }
 
-        // Attach click handler to splash screen
-        document.getElementById('splash').addEventListener('click', startExperience);
+        // Attach click handler to invitation card
+        document.getElementById('invitation-card').addEventListener('click', startExperience);
 
-        // Start petals immediately on page load (they show behind splash)
+        // Start petals immediately on page load (they show behind the card)
         window.addEventListener('load', () => {
             startParticles();
         });
