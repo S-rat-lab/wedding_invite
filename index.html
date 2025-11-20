@@ -750,15 +750,42 @@
             // Random position
             petal.style.left = Math.random() * 100 + 'vw';
 
-            // Varying sizes: xs, s, m, l, xl, xxl
-            const sizes = {
-                'xs': 12,
-                's': 18,
-                'm': 24,
-                'l': 32,
-                'xl': 40,
-                'xxl': 50
-            };
+            // Responsive sizes based on screen width
+            let sizes;
+            const screenWidth = window.innerWidth;
+
+            if (screenWidth < 375) {
+                // Very small phones - smallest petals
+                sizes = {
+                    'xs': 8,
+                    's': 12,
+                    'm': 16,
+                    'l': 22,
+                    'xl': 28,
+                    'xxl': 35
+                };
+            } else if (screenWidth < 769) {
+                // Standard phones - medium petals
+                sizes = {
+                    'xs': 10,
+                    's': 15,
+                    'm': 20,
+                    'l': 28,
+                    'xl': 35,
+                    'xxl': 42
+                };
+            } else {
+                // Desktop/tablets - largest petals
+                sizes = {
+                    'xs': 12,
+                    's': 18,
+                    'm': 24,
+                    'l': 32,
+                    'xl': 40,
+                    'xxl': 50
+                };
+            }
+
             const sizeKeys = Object.keys(sizes);
             const randomSize = sizes[sizeKeys[Math.floor(Math.random() * sizeKeys.length)]];
             petal.style.fontSize = randomSize + 'px';
