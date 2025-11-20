@@ -171,19 +171,33 @@
             opacity: 1;
         }
 
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(36px, 7vw, 60px) !important;
-            color: #ffb6d5;
+        .ceremony-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 15px;
             margin: clamp(35px, 6vh, 60px) 0 clamp(15px, 3vh, 30px) !important;
-            letter-spacing: 3px;
-            text-shadow: 0 0 20px rgba(255,182,193,0.7);
             opacity: 0;
             transition: opacity 1s ease-in;
         }
 
-        .section-title.fade-in {
+        .ceremony-section.fade-in {
             opacity: 1;
+        }
+
+        .section-ornament {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(36px, 7vw, 60px) !important;
+            color: #ffb6d5;
+            text-shadow: 0 0 20px rgba(255,182,193,0.7);
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(36px, 7vw, 60px) !important;
+            color: #ffb6d5;
+            letter-spacing: 3px;
+            text-shadow: 0 0 20px rgba(255,182,193,0.7);
         }
 
         .detail {
@@ -429,9 +443,12 @@
                 font-size: clamp(24px, 5vw, 32px) !important;
                 margin: 20px 0 !important;
             }
-            .section-title {
-                font-size: clamp(28px, 6vw, 36px) !important;
+            .ceremony-section {
                 margin: 25px 0 15px !important;
+                gap: 10px;
+            }
+            .section-title, .section-ornament {
+                font-size: clamp(28px, 6vw, 36px) !important;
             }
             .detail {
                 font-size: clamp(22px, 4.5vw, 28px) !important;
@@ -542,7 +559,11 @@
 
         <div class="subtext fade-element">Two hearts beat as one, our forever has begun</div>
 
-        <div class="section-title fade-element">✦ Wedding Ceremony ✦</div>
+        <div class="ceremony-section fade-element">
+            <div class="section-ornament">✨</div>
+            <div class="section-title">Wedding Ceremony</div>
+            <div class="section-ornament">✨</div>
+        </div>
 
         <div class="detail fade-element"><strong>Date:</strong> 25th January 2026</div>
         <div class="detail fade-element"><strong>Time:</strong> 12:00 PM – 12:30 PM</div>
